@@ -1,0 +1,9 @@
+
+services:
+  lamp:
+    image: mattrayner/lamp:latest-1804
+    volumes:
+      - ./src/:/var/www/html
+    ports:
+      - 80:80
+    command: ./run.sh
