@@ -1,0 +1,14 @@
+
+<VirtualHost *:443>
+    ServerAdmin alarin@team.amocrm.com
+    DocumentRoot /var/www/html
+    ServerName %%DOMAIN%%
+    ServerAlias %%DOMAIN%%
+    ErrorLog /etc/apache2/logs/proxy-error_log
+    CustomLog /etc/apache2/logs/proxy-log common
+
+    SSLEngine on
+    SSLCertificateFile /etc/ssl/device.crt
+    SSLCertificateKeyFile /etc/ssl/rootCA.key
+    SSLCertificateChainFile /etc/ssl/device.csr
+</VirtualHost>

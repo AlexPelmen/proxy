@@ -1,3 +1,4 @@
+version: "3"
 
 services:
   lamp:
@@ -6,4 +7,5 @@ services:
       - ./src/:/var/www/html
     ports:
       - 80:80
-    command: ./run.sh
+      - 443:443
+    command: sh /var/www/html/run.sh 127.0.0.1
