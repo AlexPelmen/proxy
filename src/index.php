@@ -1,4 +1,5 @@
 <?php
+    ini_set('default_charset', 'utf-8');
 
     const LOG_PATH = "./log.json";
     const LOG_OUT_PATH = "./logout.json";
@@ -20,17 +21,13 @@
         exit();
     }
 
-
     // хэдеры, которые не нужно передавать в проксируемом запросе
     define("SYSTEM_HEADERS", [
-        "accept-encoding",
-        "user-agent",
         "connection",
         "host",
         "content-length",
         "pragma",
         "cache-control",
-        "accept",
         "user-agent",
         "sec-fetch-site",
         "sec-fetch-mode",
@@ -38,7 +35,6 @@
 
         "origin",
         "referer",
-        "accept-encoding",
         "accept-language"
     ]);
 
@@ -80,7 +76,6 @@
     }
     $body = gettype($body) === "string" ? json_decode($body, true) : $body;
 
-
     // если не проставлен таргет, то мы не знаем, куда делать запрос
     // выкидываем ошибку
     try {
@@ -94,15 +89,12 @@
         die($e);
     }
 
-    // Без указания кодировки получим кракозябры
-    header('Content-Encoding: '.$encoding);
 
     $logOut = [
         "method" => $method,
         "url" => $url,
         "headers" => $headers
     ];
-
 
 
     $curl = curl_init();
@@ -131,12 +123,10 @@
     // забираем хэдеры из ответа
     $header_size = curl_getinfo($curl, CURLINFO_HEADER_SIZE);
     $outHeaders = explode("\n", curl_getinfo($curl, CURLINFO_HEADER_OUT));
-    foreach($outHeaders as $header) {
+    foreach($outHeaders as $key => $header) {
         header($header);
     }
 
 
     // профит!
     exit($response);
-
-
