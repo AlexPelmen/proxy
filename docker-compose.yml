@@ -3,6 +3,8 @@ version: "3"
 services:
   lamp:
     image: mattrayner/lamp:latest-1804
+    build:
+      context: ./docker
     volumes:
       - ./src/:/var/www/html
     ports:
